@@ -6,9 +6,13 @@ export default class App extends React.Component {
   }
 
   render() {
+    const children = React.cloneElement(this.props.children, {
+      router: this.context.router
+    });
+
     return (
       <div>
-        Hello, Auth0!
+        {children}
       </div>
     );
   }
