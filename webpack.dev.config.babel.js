@@ -16,7 +16,7 @@ export default {
   },
   module: {
     loaders: [{
-      test: /\.js$|\.jsx$|\.es6$|\.babel$/,
+      test: /\.js$/,
       loaders: ['react-hot', 'babel?presets[]=es2015,presets[]=react'],
       exclude:  /(node_modules)/,
       include: path.join(__dirname, 'src'),
