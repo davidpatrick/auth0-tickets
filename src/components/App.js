@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
+import AuthService from '../utils/AuthService';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -7,7 +8,7 @@ export default class App extends React.Component {
 
   render() {
     const children = React.cloneElement(this.props.children, {
-      router: this.context.router
+      auth: this.props.route.auth
     });
 
     return (
@@ -17,3 +18,8 @@ export default class App extends React.Component {
     );
   }
 }
+
+App.propTypes = {
+  children: PropTypes.object.isRequired,
+  route: PropTypes.object.isRequired
+};
