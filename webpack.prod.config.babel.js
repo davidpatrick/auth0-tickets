@@ -27,7 +27,7 @@ export default {
          NODE_ENV: JSON.stringify("production") 
        }
     }),
-    new webpack.EnvironmentPlugin([]),
+    new webpack.EnvironmentPlugin(['AUTH0_CLIENT_ID', 'AUTH0_DOMAIN']),
     new HtmlWebpackPlugin({template: 'index.html'}),
   ],
   target: 'web',

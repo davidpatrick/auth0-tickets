@@ -28,7 +28,7 @@ export default {
          NODE_ENV: JSON.stringify("development") 
        }
     }),
-    new webpack.EnvironmentPlugin([]),
+    new webpack.EnvironmentPlugin(['AUTH0_CLIENT_ID', 'AUTH0_DOMAIN']),
     new HtmlWebpackPlugin({template: 'index.html'}),
     new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.HotModuleReplacementPlugin(),
