@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react';
+import FormInput from './FormInput';
 
 const Form = ({fields, values, handleInputChange}) => {
   if (fields.length > 0) {
@@ -14,13 +15,12 @@ const Form = ({fields, values, handleInputChange}) => {
               </label>
 
               <div className="col-xs-9">
-                <input 
+                <FormInput 
                   name={field.name} 
                   value={value} 
                   type={field.type}
                   placeholder={field.placeholder}
-                  onChange={handleInputChange} 
-                  className="form-control" />
+                  onChange={handleInputChange} />
               </div>
             </div>
           );
