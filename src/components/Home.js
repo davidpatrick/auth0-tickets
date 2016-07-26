@@ -1,8 +1,31 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { formBuild, formUpdateValue } from '../actions/';
+import Form from './Form';
 
-export default class Home extends React.Component {
+class Home extends React.Component {
   constructor(props) {
     super(props);
+    this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleFormSubmission = this.handleFormSubmission.bind(this);
+  }
+
+  componentDidMount() {
+    this.props.buildForm([
+      {name: 'name', type: 'text', label: 'Customer Name', placeholder: 'Name'},
+      {name: 'email', type: 'text', label: 'Customer Email', placeholder: 'Email'},
+      {name: 'subject', type: 'text', label: 'Subject', placeholder: 'Enter a Subject'},
+      {name: 'body', type: 'textarea', label: 'Body', placeholder: 'Describe what the ticket is for'}
+    ]);
+  }
+
+  handleInputChange(e) {
+    this.props.updateFormValue(e.target.name, e.target.value);
+  }
+
+  handleFormSubmission(e) {
+
   }
 
   render() {
@@ -13,40 +36,34 @@ export default class Home extends React.Component {
           <p> Submit a ticket to Zendesk on behalf of a customer </p>
         </div>
 
-        <form className="form-horizontal">
-          <div className="form-group">
-            <label className="col-xs-3 control-label">Customer Name</label>
-            <div className="col-xs-9">
-              <input type="text" placeholder="Name" className="form-control"/>
-            </div>
-          </div>
-
-          <div className="form-group">
-            <label className="col-xs-3 control-label">Customer Email</label>
-            <div className="col-xs-9">
-              <input type="text" placeholder="Email" className="form-control"/>
-            </div>
-          </div>
-
-          <div className="form-group">
-            <label className="col-xs-3 control-label">Subject</label>
-            <div className="col-xs-9">
-              <input type="text" placeholder="Enter a subject for this ticket" className="form-control"/>
-            </div>
-          </div>
-
-          <div className="form-group">
-            <label className="col-xs-3 control-label">Body</label>
-            <div className="col-xs-9">
-              <textarea rows="5" placeholder="Describe what the ticket is for" className="form-control"/>
-            </div>
-          </div>
-
-          <div className="col-xs-offset-11">
-            <input  className="btn btn-default" type="submit" value="Submit" />
-          </div>
-        </form>
+        <Form 
+          fields={this.props.form.fields}
+          values={this.props.form.values}
+          handleInputChange={this.handleInputChange}
+          handleFormSubmission={this.handleFormSubmission} />
       </div>
     );
   }
 }
+
+Home.propTypes = {
+  form: PropTypes.object.isRequired,
+  buildForm: PropTypes.func.isRequired,
+  updateFormValue: PropTypes.func.isRequired
+};
+
+const mapStateToProps = state => {
+  return {
+    authentication: state.authentication,
+    form: state.form
+  };
+};
+
+function mapDispatchToProps(dispatch) {
+  return {
+    buildForm: bindActionCreators(formBuild, dispatch),
+    updateFormValue: bindActionCreators(formUpdateValue, dispatch)
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Home);
