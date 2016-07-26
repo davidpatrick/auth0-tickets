@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { formBuild, formUpdateValue } from '../actions/';
+import { formBuild, formUpdateValue, formSubmit } from '../actions/';
 import Form from './Form';
 
 class Home extends React.Component {
@@ -25,7 +25,8 @@ class Home extends React.Component {
   }
 
   handleFormSubmission(e) {
-
+    e.preventDefault();
+    this.props.submitForm('/api/v1/submit_ticket', this.props.form.values);
   }
 
   render() {
@@ -49,7 +50,8 @@ class Home extends React.Component {
 Home.propTypes = {
   form: PropTypes.object.isRequired,
   buildForm: PropTypes.func.isRequired,
-  updateFormValue: PropTypes.func.isRequired
+  updateFormValue: PropTypes.func.isRequired,
+  submitForm: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => {
@@ -62,7 +64,8 @@ const mapStateToProps = state => {
 function mapDispatchToProps(dispatch) {
   return {
     buildForm: bindActionCreators(formBuild, dispatch),
-    updateFormValue: bindActionCreators(formUpdateValue, dispatch)
+    updateFormValue: bindActionCreators(formUpdateValue, dispatch),
+    submitForm: bindActionCreators(formSubmit, dispatch)
   };
 }
 

@@ -13,6 +13,7 @@ const form = (state = initialState, action) => {
     case at.FORM_BUILD:
       return {
         ...initialState,
+        defaults: action.values,
         fields: action.fields,
         values: action.values
       };
@@ -26,20 +27,22 @@ const form = (state = initialState, action) => {
       };
     case at.FORM_SUBMIT:
       return {
+        ...state,
         error: null,
         loading: true,
         success: false
       };
     case at.FORM_SUCCESS:
       return {
-        ...initialState,
-        ...state.fields,
+        ...state,
+        values: state.defaults,
+        error: null,
+        loading: false,
         success: true
       };
       case at.FORM_ERRORS:
         return {
-          ...initialState,
-          ...state.fields,
+          ...state,
           error: action.error
         };
     default:

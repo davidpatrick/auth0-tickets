@@ -1,12 +1,12 @@
 import React, { PropTypes } from 'react';
 import FormInput from './FormInput';
 
-const Form = ({fields, values, handleInputChange}) => {
+const Form = ({fields, values, handleInputChange, handleFormSubmission}) => {
   if (fields.length > 0) {
     return (
-      <form className="form-horizontal">
+      <form className="form-horizontal" onSubmit={handleFormSubmission}>
         {fields.map(field => {
-          const value = values[field];
+          let value = values[field.name];
 
           return (
             <div key={field.name} className="form-group">
