@@ -1,7 +1,9 @@
 import React, { PropTypes } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import AuthService from '../utils/AuthService';
 
-export default class Login extends React.Component {
+class Login extends React.Component {
   constructor(props) {
     super(props);
     this.handleClick = this.handleClick.bind(this);
@@ -9,17 +11,21 @@ export default class Login extends React.Component {
 
   handleClick() {
     const { auth } = this.props;
-
     auth.login();
   }
 
   render() {
     return (
       <div>
-        <h2>Login</h2>
-        <button onClick={this.handleClick}>
-          Login
-        </button>
+      <section className="jumbotron has-header">
+        <h2 style={{'paddingTop':'25px'}}>
+          <i aria-hidden="true" className="icon-budicon-72 icon" style={{'fontSize':'50px'}}></i>
+        </h2>
+
+        <h1>Auth0 Ticketing System</h1>
+        <p>Login to create a support ticket on behalf of a customer.</p>
+        <div onClick={this.handleClick} className="btn btn-success btn-lg">Login</div>
+      </section>
       </div>
     );
   }
@@ -28,3 +34,11 @@ export default class Login extends React.Component {
 Login.propTypes = {
   auth: PropTypes.instanceOf(AuthService)
 };
+
+const mapStateToProps = state => {
+  return {
+    authentication: state.authentication
+  };
+};
+
+export default connect(mapStateToProps, null)(Login);
