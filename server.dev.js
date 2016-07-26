@@ -1,6 +1,7 @@
 import "babel-polyfill";
-import path from 'path';
 import express from 'express';
+import bodyParser from 'body-parser';
+import router from './serverRoutes';
 import webpack from 'webpack';
 import webpackDevMiddleware from 'webpack-dev-middleware';
 import webpackHotMiddleware from 'webpack-hot-middleware';
@@ -11,16 +12,8 @@ const port = process.env.PORT || 3000;
 const compiler = webpack(webpackConfig);
 app.use(webpackDevMiddleware(compiler));
 app.use(webpackHotMiddleware(compiler));
-
-app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, './index.html'));
-});
-
-app.get('*', function(req, res) {
-  res.json({
-    'route': 'Sorry this page does not exist!'
-  });
-});
+app.use(bodyParser.json()); // for parsing application/json
+app.use('/', router);
 
 app.listen(port);
 console.log('Server is Up and Running at Port : ' + port);
