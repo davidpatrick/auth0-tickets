@@ -9,6 +9,19 @@ const handleFormSuccess = () => ({
   type: at.FORM_SUCCESS
 });
 
+export const formBuild = fields => {
+  const values = {};
+  fields.forEach(field => {
+    values[field.name] = field.value || '';
+  });
+
+  return {
+    type: at.FORM_BUILD,
+    fields,
+    values
+  };
+};
+
 export const formSubmit = url => {
   return dispatch => {
     dispatch({type: at.FORM_SUBMIT});
