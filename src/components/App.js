@@ -43,7 +43,7 @@ class App extends React.Component {
                 </h1>
               </div>
               <div id="navbar-collapse" className="collapse navbar-collapse">
-                <ul className="nav navbar-nav navbar-left no-basic">
+                <ul className="nav navbar-nav navbar-right">
                   {this.buildAuthLink()}
                 </ul>
               </div>

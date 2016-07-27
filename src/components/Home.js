@@ -31,18 +31,20 @@ class Home extends React.Component {
 
   render() {
     return (
-      <div>
-        <div className="content-header col-xs-10 col-xs-offset-2">
+      <main>
+        <section className="content-header col-xs-12 col-sm-offset-1">
           <h1> Open Ticket </h1>
           <p> Submit a ticket to Zendesk on behalf of a customer </p>
-        </div>
+        </section>
 
-        <Form 
-          fields={this.props.form.fields}
-          values={this.props.form.values}
-          handleInputChange={this.handleInputChange}
-          handleFormSubmission={this.handleFormSubmission} />
-      </div>
+        <section className="col-xs-12">
+          <Form 
+            fields={this.props.form.fields}
+            values={this.props.form.values}
+            handleInputChange={this.handleInputChange}
+            handleFormSubmission={this.handleFormSubmission} />
+        </section>
+      </main>
     );
   }
 }
