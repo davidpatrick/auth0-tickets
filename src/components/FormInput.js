@@ -5,7 +5,10 @@ const defaultInputAttrs = {
   className: 'form-control'
 };
 
-const FormInput = ({type, name, value, placeholder, onChange, defaults=defaultInputAttrs}) => {
+const FormInput = ({type, name, value, placeholder, onChange, options={}}) => {
+  // Merge Component Defaults with Options passed in
+  options = {...defaultInputAttrs, ...options};
+
   // Currently there are only two types of form inputs supported defaults to input
   switch(type) {
     case 'textarea':
@@ -13,20 +16,22 @@ const FormInput = ({type, name, value, placeholder, onChange, defaults=defaultIn
         <textarea 
           name={name} 
           value={value} 
-          rows={defaults.rows}
           placeholder={placeholder}
           onChange={onChange} 
-          className={defaults.className} />
+          className={options.className}
+          required={options.required} 
+          rows={options.rows} />
       );
     default:
       return (
         <input
           name={name} 
           value={value} 
-          type={type}
           placeholder={placeholder}
           onChange={onChange} 
-          className={defaults.className} />
+          className={options.className} 
+          required={options.required} 
+          type={type} />
       );
   }
 };
@@ -40,7 +45,7 @@ FormInput.propTypes = {
     PropTypes.number
   ]),
   placeholder: PropTypes.string.isRequired,
-  defaults: PropTypes.object
+  options: PropTypes.object
 };
 
 export default FormInput;

@@ -20,6 +20,7 @@ const Form = ({fields, values, handleInputChange, handleFormSubmission}) => {
                   value={value} 
                   type={field.type}
                   placeholder={field.placeholder}
+                  options={{required: true}}
                   onChange={handleInputChange} />
               </div>
             </div>
