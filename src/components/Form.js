@@ -27,7 +27,7 @@ const Form = ({fields, values, handleInputChange, handleFormSubmission}) => {
           );
         })}
 
-        <div className="col-xs-offset-11">
+        <div className="pull-right">
           <input className="btn btn-default" type="submit" value="Submit" />
         </div>
       </form>
