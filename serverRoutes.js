@@ -10,9 +10,7 @@ serverRoutes.get('/', (req, res) => {
 });
 
 serverRoutes.get('*', function(req, res) {
-  res.json({
-    'route': 'Sorry this page does not exist!'
-  });
+  res.json({'route': 'Sorry this page does not exist!'});
 });
   
 // Api Routes
@@ -25,7 +23,7 @@ serverRoutes.post('/api/v1/submit_ticket', (req, res) => {
     res.status(400).json({ error: error });
   } else {
     submitToZendesk(req.body);
-    res.json(req.body);
+    res.status(200).json(req.body);
   }
 
   function submitToZendesk(form) {
