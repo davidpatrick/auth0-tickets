@@ -7,6 +7,7 @@ import ReduxThunk from 'redux-thunk';
 import AuthService from './utils/AuthService';
 import reducers from './reducers/';
 import App from './components/App';
+import Loading from './components/Loading';
 import NotFound from './components/NotFound';
 import Home from './components/Home';
 import Login from './components/Login';
@@ -27,6 +28,7 @@ render(
         <IndexRedirect to="/home" />
         <Route path="home" component={Home} onEnter={requireAuth}/>
         <Route path="login" component={Login} />
+        <Route path="access_token*" component={Loading}/>
         <Route path="*" component={NotFound}/>
       </Route>
     </Router>
