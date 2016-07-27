@@ -14,6 +14,11 @@ const handleFormSuccess = response => {
   });
 };
 
+const validateFetch = response => {
+  if (!response.ok) throw Error(response.statusText);
+  return response;
+}
+
 export const formBuild = fields => {
   const values = {};
   fields.forEach(field => {
@@ -39,7 +44,8 @@ export const formSubmit = (url, token, values) => {
         'Content-Type': 'application/json',
         'Auth-Token': token
       }
-    }).then(response => response.json())
+    }).then(response => validateFetch(response))
+      .then(response => response.json())
       .then(json => dispatch(handleFormSuccess(json)))
       .catch(error => dispatch(handleFormError(error)));
   };
