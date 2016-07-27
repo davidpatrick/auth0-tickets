@@ -26,7 +26,7 @@ class Home extends React.Component {
 
   handleFormSubmission(e) {
     e.preventDefault();
-    this.props.submitForm('/api/v1/submit_ticket', this.props.form.values);
+    this.props.submitForm('/api/v1/submit_ticket', this.props.authentication.token, this.props.form.values);
   }
 
   render() {
@@ -49,6 +49,7 @@ class Home extends React.Component {
 
 Home.propTypes = {
   form: PropTypes.object.isRequired,
+  authentication: PropTypes.object.isRequired,
   buildForm: PropTypes.func.isRequired,
   updateFormValue: PropTypes.func.isRequired,
   submitForm: PropTypes.func.isRequired

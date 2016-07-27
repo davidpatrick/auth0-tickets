@@ -27,7 +27,7 @@ export const formBuild = fields => {
   };
 };
 
-export const formSubmit = (url, values) => {
+export const formSubmit = (url, token, values) => {
   return dispatch => {
     dispatch({type: at.FORM_SUBMIT});
 
@@ -37,7 +37,7 @@ export const formSubmit = (url, values) => {
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
-        'Auth-Token': localStorage.getItem('id_token')
+        'Auth-Token': token
       }
     }).then(response => response.json())
       .then(json => dispatch(handleFormSuccess(json)))
