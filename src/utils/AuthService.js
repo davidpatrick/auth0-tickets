@@ -15,7 +15,7 @@ export default class AuthService {
     this.dispatch = store.dispatch;
   }
 
-  _doAuthentication(authResult){
+  _doAuthentication(authResult) {
     // Saves the user token
     this.setToken(authResult.idToken);
 
@@ -37,7 +37,7 @@ export default class AuthService {
     this.lock.show();
   }
 
-  loggedIn(){
+  loggedIn() {
     // Checks if there is a saved token and it's still valid
     const token = this.getToken();
 
@@ -49,14 +49,14 @@ export default class AuthService {
     return !!token;
   }
 
-  setToken(idToken){
+  setToken(idToken) {
     // Saves user token to localStorage
     localStorage.setItem('id_token', idToken);
     // Saves the user token to Redux Store
     this.dispatchLogin(idToken);
   }
 
-  getToken(){
+  getToken() {
     // Retrieves the user token from localStorage
     return this.validateToken() ? localStorage.getItem('id_token') : null;
   }
@@ -66,7 +66,7 @@ export default class AuthService {
     return tokenexpiresAt && Date.now() < tokenexpiresAt * 1000;
   }
 
-  logout(){
+  logout() {
     // Clear user token info from localStorage and dispatch logout
     localStorage.removeItem('id_token');
     localStorage.removeItem('id_exp');
