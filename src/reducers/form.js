@@ -20,6 +20,7 @@ const form = (state = initialState, action) => {
     case at.FORM_UPDATE_VALUE:
       return {
         ...state,
+        success: false,
         values: {
           ...state.values,
           [action.name]: action.value

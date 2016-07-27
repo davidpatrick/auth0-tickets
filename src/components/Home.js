@@ -41,6 +41,8 @@ class Home extends React.Component {
           <Form 
             fields={this.props.form.fields}
             values={this.props.form.values}
+            success={this.props.form.success}
+            error={this.props.form.error}
             handleInputChange={this.handleInputChange}
             handleFormSubmission={this.handleFormSubmission} />
         </section>
