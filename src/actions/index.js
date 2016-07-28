@@ -17,7 +17,7 @@ const handleFormSuccess = response => {
 const validateFetch = response => {
   if (!response.ok) throw Error(response.statusText);
   return response;
-}
+};
 
 export const formBuild = fields => {
   const values = {};

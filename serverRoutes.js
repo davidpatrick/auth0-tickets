@@ -1,4 +1,3 @@
-import fetch from 'isomorphic-fetch';
 import jwt from 'express-jwt';
 import path from 'path';
 import { Router } from 'express';
@@ -8,6 +7,7 @@ const auth0Authorization = jwt({
   secret: new Buffer(process.env.AUTH0_SECRET, 'base64'),
   audience: process.env.AUTH0_CLIENT_ID
 });
+
 
 // Front-End Routes
 serverRoutes.get('/', (req, res) => {
