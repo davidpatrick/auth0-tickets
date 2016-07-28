@@ -15,7 +15,7 @@ import Login from './components/Login';
 import './scss/index.scss';
 
 const store = createStore(reducers, applyMiddleware(ReduxThunk));
-const auth = new AuthService(process.env.AUTH0_CLIENT_ID, process.env.AUTH0_DOMAIN, store);
+const auth = new AuthService(process.env.AUTH0_CLIENT_ID, process.env.AUTH0_DOMAIN, store, hashHistory);
 
 const requireAuth = (nextState, replace) => {
   if (!auth.loggedIn()) {
@@ -30,7 +30,6 @@ render(
         <IndexRedirect to="/home" />
         <Route path="home" component={Home} onEnter={requireAuth}/>
         <Route path="login" component={Login} />
-        <Route path="access_token*" component={Loading}/>
         <Route path="*" component={NotFound}/>
       </Route>
     </Router>

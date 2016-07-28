@@ -2,9 +2,14 @@ import Auth0Lock from 'auth0-lock';
 import { loginUser, logoutUser } from '../actions/';
 
 export default class AuthService {
-  constructor(clientId, domain, store) {
+  constructor(clientId, domain, store, router) {
     // Configure Auth0
-    this.lock = new Auth0Lock(clientId, domain, {});
+    this.lock = new Auth0Lock(clientId, domain, {
+      auth: {
+       redirect: false,
+       responseType: "token"
+      }
+    });
     // Add callback for lock `authenticated` event
     this.lock.on('authenticated', this._doAuthentication.bind(this));
     // binds login functions to keep this context
@@ -13,6 +18,8 @@ export default class AuthService {
     this.reduxStore = store;
     // binds redux dispatch
     this.dispatch = store.dispatch;
+    // binds react-router
+    this.router = router;
   }
 
   _doAuthentication(authResult) {
@@ -21,6 +28,10 @@ export default class AuthService {
 
     // Saves the expiration date
     localStorage.setItem('id_exp', authResult.idTokenPayload.exp);
+
+    //Redirect user
+    this.router.push('home');
+    this.lock.hide();
   }
 
   dispatchLogin(token) {

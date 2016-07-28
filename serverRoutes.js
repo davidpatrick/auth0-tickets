@@ -55,7 +55,7 @@ serverRoutes.post('/api/v1/submit_ticket', (req, res) => {
 });
 
 function loadCurrentUser (req, res, next) {
-  const authToken = req.headers.authorization.split(' ')[1]
+  const authToken = req.headers.authorization.split(' ')[1];
 
   fetch('https://foray.auth0.com/tokeninfo', {
     method: 'POST',
