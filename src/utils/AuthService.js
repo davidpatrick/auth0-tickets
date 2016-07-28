@@ -6,11 +6,11 @@ export default class AuthService {
     // Configure Auth0
     this.lock = new Auth0Lock(clientId, domain, {
       auth: {
-      params: {
-        scope: 'email picture'
-      },
-       redirect: false,
-       responseType: "token"
+        params: {
+          scope: 'openid nickname email picture'
+        },
+        redirect: false,
+        responseType: "token"
       }
     });
     // Add callback for lock `authenticated` event
