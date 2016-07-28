@@ -6,7 +6,7 @@ const Form = ({fields, values, success, error, handleInputChange, handleFormSubm
   if (fields.length > 0) {
     return (
       <form className="form-horizontal" onSubmit={handleFormSubmission}>
-        <div className="col-xs-offset-1">
+        <div className="col-md-offset-1">
           <FormAlert success={success} error={error} />
         </div>
 

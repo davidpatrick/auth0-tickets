@@ -32,7 +32,7 @@ class Home extends React.Component {
   render() {
     return (
       <main>
-        <section className="content-header col-xs-12 col-sm-offset-1">
+        <section className="content-header col-xs-12 col-md-offset-1">
           <h1> Open Ticket </h1>
           <p> Submit a ticket to Zendesk on behalf of a customer </p>
         </section>
