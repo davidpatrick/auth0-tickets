@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react';
 import { withRouter } from 'react-router';
 import AuthService from '../utils/AuthService';
+import Footer from './Footer'
 
 class App extends React.Component {
   constructor(props) {
@@ -53,6 +54,7 @@ class App extends React.Component {
         
         {children}
 
+        <Footer />
       </div>
     );
   }
