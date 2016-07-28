@@ -20,7 +20,6 @@ serverRoutes.get('*', function(req, res) {
   
 // Api Routes
 serverRoutes.use('/api/*', auth0Authorization);
-serverRoutes.use('/api/*', loadCurrentUser);
 serverRoutes.use((err, req, res, next) => {
   if (err.name === 'UnauthorizedError') {
     res.status(401).json({error: 'Unauthorized'});
@@ -38,7 +37,7 @@ serverRoutes.post('/api/v1/submit_ticket', (req, res) => {
   }
 
   function submitToZendesk(form) {
-    console.log('submitToZendesk', form);
+    console.log('submitToZendesk', req.user);
   }
 
   function validateForm(form) {
@@ -53,29 +52,5 @@ serverRoutes.post('/api/v1/submit_ticket', (req, res) => {
     return !!form.name && !!form.email && !!form.subject && !!form.body;
   }
 });
-
-function loadCurrentUser (req, res, next) {
-  const authToken = req.headers.authorization.split(' ')[1];
-
-  fetch('https://foray.auth0.com/tokeninfo', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'authorization': req.header.authorzation
-    },
-    body: JSON.stringify({
-      id_token: authToken
-    })
-  }).then(response => {
-    if (response.status === 200) {
-      response.json().then(json => {
-        req.currentUser = json;
-        next();
-      });
-    } else {
-      res.status(401).json({ error: 'Unauthorized' });
-    }
-  }).catch(error=> res.status(500).json({ error: error }));
-}
 
 export default serverRoutes;
