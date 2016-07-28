@@ -16,8 +16,7 @@ class Login extends React.Component {
 
   render() {
     return (
-      <div>
-      <section className="jumbotron has-header">
+      <section className="jumbotron">
         <h2 style={{'paddingTop':'25px'}}>
           <i aria-hidden="true" className="icon-budicon-72 icon" style={{'fontSize':'50px'}}></i>
         </h2>
@@ -26,7 +25,6 @@ class Login extends React.Component {
         <p>Login to create a support ticket on behalf of a customer.</p>
         <div onClick={this.handleClick} className="btn btn-success btn-lg">Login</div>
       </section>
-      </div>
     );
   }
 }

@@ -50,10 +50,9 @@ class App extends React.Component {
             </div>
           </nav>
         </header>
+        
+        {children}
 
-        <div className="container">
-          {children}
-        </div>
       </div>
     );
   }
