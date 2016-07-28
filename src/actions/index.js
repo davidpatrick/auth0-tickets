@@ -42,7 +42,7 @@ export const formSubmit = (url, token, values) => {
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
-        'Auth-Token': token
+        'authorization': `Bearer ${token}`
       }
     }).then(response => validateFetch(response))
       .then(response => response.json())

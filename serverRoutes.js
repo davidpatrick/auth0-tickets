@@ -1,8 +1,13 @@
 import fetch from 'isomorphic-fetch';
+import jwt from 'express-jwt';
 import path from 'path';
 import { Router } from 'express';
 
 const serverRoutes = Router();
+const auth0Authorization = jwt({
+  secret: new Buffer(process.env.AUTH0_SECRET, 'base64'),
+  audience: process.env.AUTH0_CLIENT_ID
+});
 
 // Front-End Routes
 serverRoutes.get('/', (req, res) => {
@@ -14,7 +19,13 @@ serverRoutes.get('*', function(req, res) {
 });
   
 // Api Routes
-serverRoutes.all('/api/*', requireAuthentication);
+serverRoutes.use('/api/*', auth0Authorization);
+serverRoutes.use('/api/*', loadCurrentUser);
+serverRoutes.use((err, req, res, next) => {
+  if (err.name === 'UnauthorizedError') {
+    res.status(401).json({error: 'Unauthorized'});
+  }
+});
 
 serverRoutes.post('/api/v1/submit_ticket', (req, res) => {
   const error = validateForm(req.body);
@@ -43,12 +54,15 @@ serverRoutes.post('/api/v1/submit_ticket', (req, res) => {
   }
 });
 
-function requireAuthentication (req, res, next) {
-  const authToken = req.header('Auth-Token');
+function loadCurrentUser (req, res, next) {
+  const authToken = req.headers.authorization.split(' ')[1]
 
   fetch('https://foray.auth0.com/tokeninfo', {
     method: 'POST',
-    headers: {'Content-Type': 'application/json'},
+    headers: {
+      'Content-Type': 'application/json',
+      'authorization': req.header.authorzation
+    },
     body: JSON.stringify({
       id_token: authToken
     })
