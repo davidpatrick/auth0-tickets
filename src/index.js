@@ -12,6 +12,8 @@ import NotFound from './components/NotFound';
 import Home from './components/Home';
 import Login from './components/Login';
 
+import './scss/index.scss';
+
 const store = createStore(reducers, applyMiddleware(ReduxThunk));
 const auth = new AuthService(process.env.AUTH0_CLIENT_ID, process.env.AUTH0_DOMAIN, store);
 

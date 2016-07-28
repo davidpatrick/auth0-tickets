@@ -14,12 +14,18 @@ export default {
     publicPath: '/',
   },
   module: {
-    loaders: [{
-      test: /\.js$/,
-      loaders: ['babel?presets[]=es2015,presets[]=react'],
-      exclude: /node_modules/,
-      include: __dirname,
-    }],
+    loaders: [
+      {
+        test: /\.js$/,
+        loaders: ['babel?presets[]=es2015,presets[]=react'],
+        exclude:  /(node_modules)/,
+        include: path.join(__dirname, 'src'),
+      },
+      {
+        test: /\.scss$/,
+        loader: 'style!css!sass'
+      }
+    ]
   },
   plugins: [
     new webpack.DefinePlugin({
