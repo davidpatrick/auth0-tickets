@@ -44,7 +44,9 @@ const form = (state = initialState, action) => {
       case at.FORM_ERRORS:
         return {
           ...state,
-          error: action.error
+          error: action.error,
+          loading: false,
+          success: false
         };
     default:
       return state;

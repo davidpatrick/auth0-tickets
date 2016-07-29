@@ -1,8 +1,9 @@
 import React, { PropTypes } from 'react';
 import FormAlert from './FormAlert';
 import FormInput from './FormInput';
+import Loading from './Loading';
 
-const Form = ({fields, values, success, error, handleInputChange, handleFormSubmission}) => {
+const Form = ({fields, values, success, error, loading, handleInputChange, handleFormSubmission}) => {
   if (fields.length > 0) {
     return (
       <form className="form-horizontal" onSubmit={handleFormSubmission}>
@@ -33,7 +34,7 @@ const Form = ({fields, values, success, error, handleInputChange, handleFormSubm
         })}
 
         <div className="pull-right">
-          <input className="btn btn-default" type="submit" value="Submit" />
+          {loading ? <Loading /> : <input className="btn btn-default" type="submit" value="Submit" />}
         </div>
       </form>
     );
@@ -47,6 +48,7 @@ Form.propTypes = {
   handleInputChange: PropTypes.func.isRequired,
   fields: PropTypes.array.isRequired,
   values: PropTypes.object.isRequired,
+  loading: PropTypes.bool.isRequired,
   success: PropTypes.bool,
   error: PropTypes.string
 };
