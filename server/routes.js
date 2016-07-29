@@ -16,9 +16,9 @@ serverRoutes.get('/', (req, res) => {
 });
 
 serverRoutes.get('*', function(req, res) {
-  res.json({'route': 'Sorry this page does not exist!'});
+  res.status(404).json({'error': 'Sorry this page does not exist!'});
 });
-  
+
 // Api Routes
 serverRoutes.use('/api/*', auth0Authorization);
 serverRoutes.use((err, req, res, next) => {
