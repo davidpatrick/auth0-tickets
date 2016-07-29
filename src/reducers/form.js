@@ -1,7 +1,7 @@
 import * as at from '../actions/actionTypes';
 
 const initialState = {
-  error: null,
+  errors: null,
   loading: false,
   success: false,
   fields: [],
@@ -29,7 +29,7 @@ const form = (state = initialState, action) => {
     case at.FORM_SUBMIT:
       return {
         ...state,
-        error: null,
+        errors: null,
         loading: true,
         success: false
       };
@@ -37,17 +37,17 @@ const form = (state = initialState, action) => {
       return {
         ...state,
         values: state.defaults,
-        error: null,
+        errors: null,
         loading: false,
         success: true
       };
-      case at.FORM_ERRORS:
-        return {
-          ...state,
-          error: action.error,
-          loading: false,
-          success: false
-        };
+    case at.FORM_ERRORS:
+      return {
+        ...state,
+        errors: action.errors,
+        loading: false,
+        success: false
+      };
     default:
       return state;
   }

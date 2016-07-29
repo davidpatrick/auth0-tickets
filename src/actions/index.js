@@ -1,10 +1,10 @@
 import * as at from './actionTypes';
 import fetch from 'isomorphic-fetch';
 
-const handleFormError = error => {
+const handleFormError = errors => {
   return dispatch => dispatch({
     type: at.FORM_ERRORS,
-    error: error.message
+    errors: [].concat(errors)
   });
 };
 
@@ -15,7 +15,7 @@ const handleFormSuccess = response => {
 };
 
 const validateFetch = json => {
-  if (json.error) throw Error(json.error);
+  if (json.error) throw json.error;
   return json;
 };
 

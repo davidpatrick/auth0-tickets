@@ -3,12 +3,12 @@ import FormAlert from './FormAlert';
 import FormInput from './FormInput';
 import Loading from './Loading';
 
-const Form = ({fields, values, success, error, loading, handleInputChange, handleFormSubmission}) => {
+const Form = ({fields, values, success, errors, loading, handleInputChange, handleFormSubmission}) => {
   if (fields.length > 0) {
     return (
       <form className="form-horizontal" onSubmit={handleFormSubmission}>
         <div className="col-md-offset-1">
-          <FormAlert success={success} error={error} />
+          <FormAlert success={success} errors={errors} />
         </div>
 
         {fields.map(field => {
@@ -50,7 +50,7 @@ Form.propTypes = {
   values: PropTypes.object.isRequired,
   loading: PropTypes.bool.isRequired,
   success: PropTypes.bool,
-  error: PropTypes.string
+  errors: PropTypes.array
 };
 
 export default Form;
