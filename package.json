@@ -6,10 +6,10 @@
     "node": "6.2.2"
   },
   "scripts": {
-    "build": "npm run build-app && npm run build-server && npm run build-server-routes",
+    "build": "npm run build-app && npm run build-server && npm run build-server-src",
     "build-app": "webpack --config webpack.prod.config.babel.js --progress -p",
     "build-server": "babel server.prod.js -d dist -D --presets es2015",
-    "build-server-routes": "babel serverRoutes.js -d dist -D --presets es2015",
+    "build-server-src": "babel ./server/ -d ./dist/server/ -D --presets es2015",
     "dev": "babel-node server.dev",
     "start": "npm run build && node ./dist/server.prod",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -30,6 +30,7 @@
     "html-webpack-plugin": "^2.22.0",
     "isomorphic-fetch": "^2.2.1",
     "node-sass": "^3.8.0",
+    "node-zendesk": "^1.1.10",
     "react": "^15.2.1",
     "react-dom": "^15.2.1",
     "react-redux": "^4.4.5",

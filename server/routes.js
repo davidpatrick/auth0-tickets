@@ -1,13 +1,14 @@
 import jwt from 'express-jwt';
 import path from 'path';
 import { Router } from 'express';
+import ZenDeskApi from './ZenDeskApi';
 
 const serverRoutes = Router();
 const auth0Authorization = jwt({
   secret: new Buffer(process.env.AUTH0_SECRET, 'base64'),
   audience: process.env.AUTH0_CLIENT_ID
 });
-
+const zenDeskClient = new ZenDeskApi();
 
 // Front-End Routes
 serverRoutes.get('/', (req, res) => {
@@ -26,18 +27,24 @@ serverRoutes.use((err, req, res, next) => {
   }
 });
 
+serverRoutes.use('/api/v1/submit_ticket', (req, res, next) => {
+  zenDeskClient.findOrCreateUser(req.user)
+    .then(user => {
+      req.zenDeskUser = user;
+      next();
+    })
+    .catch(err => res.status(400).json({ error: err}) );
+});
+
 serverRoutes.post('/api/v1/submit_ticket', (req, res) => {
   const error = validateForm(req.body);
 
   if (error) {
     res.status(400).json({ error: error });
   } else {
-    submitToZendesk(req.body);
-    res.status(200).json(req.body);
-  }
-
-  function submitToZendesk(form) {
-    console.log('submitToZendesk', req.user);
+    zenDeskClient.createTicket(req.zenDeskUser.id, req.body)
+      .then(ticket => res.status(200).json(ticket))
+      .catch(err => res.status(400).json({ error: error }));
   }
 
   function validateForm(form) {

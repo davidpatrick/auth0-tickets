@@ -1,7 +1,7 @@
 import "babel-polyfill";
 import express from 'express';
 import bodyParser from 'body-parser';
-import router from './serverRoutes';
+import router from './server/routes';
 import webpack from 'webpack';
 import webpackDevMiddleware from 'webpack-dev-middleware';
 import webpackHotMiddleware from 'webpack-hot-middleware';
