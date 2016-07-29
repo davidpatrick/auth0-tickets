@@ -11,7 +11,7 @@ const FormAlert = ({success, error}) => {
   } else if (error) {
     return (
       <div className="alert alert-danger">
-        There was an error: {error}
+        {error}
       </div>
     );
   } else {

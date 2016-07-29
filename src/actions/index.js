@@ -14,9 +14,9 @@ const handleFormSuccess = response => {
   });
 };
 
-const validateFetch = response => {
-  if (!response.ok) throw Error(response.statusText);
-  return response;
+const validateFetch = json => {
+  if (json.error) throw Error(json.error);
+  return json;
 };
 
 export const formBuild = fields => {
@@ -44,8 +44,8 @@ export const formSubmit = (url, token, values) => {
         'Content-Type': 'application/json',
         'authorization': `Bearer ${token}`
       }
-    }).then(response => validateFetch(response))
-      .then(response => response.json())
+    }).then(response => response.json())
+      .then(json => validateFetch(json))
       .then(json => dispatch(handleFormSuccess(json)))
       .catch(error => dispatch(handleFormError(error)));
   };
