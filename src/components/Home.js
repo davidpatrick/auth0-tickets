@@ -13,10 +13,10 @@ class Home extends React.Component {
 
   componentDidMount() {
     this.props.buildForm([
-      {name: 'name', type: 'text', label: 'Customer Name', placeholder: 'Name'},
-      {name: 'email', type: 'text', label: 'Customer Email', placeholder: 'Email'},
-      {name: 'subject', type: 'text', label: 'Subject', placeholder: 'Enter a Subject'},
-      {name: 'body', type: 'textarea', label: 'Body', placeholder: 'Describe what the ticket is for'}
+      {name: 'name', type: 'text', label: 'Customer Name', placeholder: 'Name', options: {required: true}},
+      {name: 'email', type: 'text', label: 'Customer Email', placeholder: 'Email', options: {required: true}},
+      {name: 'subject', type: 'text', label: 'Subject', placeholder: 'Enter a Subject', options: {required: true}},
+      {name: 'body', type: 'textarea', label: 'Body', placeholder: 'Describe what the ticket is for', options: {required: true}}
     ]);
   }
 
@@ -42,7 +42,7 @@ class Home extends React.Component {
             fields={this.props.form.fields}
             values={this.props.form.values}
             success={this.props.form.success}
-            error={this.props.form.error}
+            errors={this.props.form.errors}
             loading={this.props.form.loading}
             handleInputChange={this.handleInputChange}
             handleFormSubmission={this.handleFormSubmission} />

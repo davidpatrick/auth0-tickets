@@ -26,7 +26,7 @@ const Form = ({fields, values, success, error, loading, handleInputChange, handl
                   value={value} 
                   type={field.type}
                   placeholder={field.placeholder}
-                  options={{required: true}}
+                  options={field.options}
                   onChange={handleInputChange} />
               </div>
             </div>
