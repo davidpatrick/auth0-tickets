@@ -15,7 +15,7 @@ serverRoutes.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, './index.html'));
 });
 
-serverRoutes.get('*', function(req, res) {
+serverRoutes.get('*', (req, res) => {
   res.status(404).json({'error': 'Sorry this page does not exist!'});
 });
 
@@ -33,30 +33,33 @@ serverRoutes.use('/api/v1/submit_ticket', (req, res, next) => {
       req.zenDeskUser = user;
       next();
     })
-    .catch(err => res.status(400).json({ error: err}) );
+    .catch(err => res.status(400).json({error: err}) );
 });
 
 serverRoutes.post('/api/v1/submit_ticket', (req, res) => {
-  const error = validateForm(req.body);
+  const formErrors = validateForm(req.body);
 
-  if (error) {
-    res.status(400).json({ error: error });
+  if (formErrors) {
+    res.status(400).json({error: formErrors});
   } else {
     zenDeskClient.createTicket(req.zenDeskUser.id, req.body)
       .then(ticket => res.status(200).json(ticket))
-      .catch(err => res.status(400).json({ error: error }));
+      .catch(err => res.status(400).json({error: err}));
   }
 
   function validateForm(form) {
-    if (!hasRequiredFields(form)) {
-      return 'Missing Required Fields';
-    } else {
-      return null;
-    }
-  }
+    const requiredFields = {
+      name: 'Customer Name',
+      email: 'Customer Email',
+      subject: 'Subject',
+      body: 'Body'
+    };
 
-  function hasRequiredFields(form) {
-    return !!form.name && !!form.email && !!form.subject && !!form.body;
+    const errors = Object.keys(requiredFields).map(field => 
+      !form[field] ? `${requiredFields[field]} is Required` : null
+    ).filter(field => field);
+
+    return errors.length > 0 ? errors : null;
   }
 });
 

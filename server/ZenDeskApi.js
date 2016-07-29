@@ -78,13 +78,25 @@ export default class ZenDeskApi {
     };
 
     return new Promise((resolve, reject) => {
-      this.zenDeskClient.tickets.create(ticket, function (err, req, res) {
+      this.zenDeskClient.tickets.create(ticket, (err, req, res) => {
         if (err) {
-          reject(err);
+          reject(this.parseZenDeskApiErrors(err));
         } else {
           resolve(res);
         }
       });
     });
+  }
+
+  parseZenDeskApiErrors(err) {
+    const errMsg = err.result.toString();
+    const errDetails = JSON.parse(errMsg).details;
+    const errors = Object.keys(errDetails).map(detail =>
+      errDetails[detail].map(detailErrors => 
+        detailErrors.description.replace('Requester', 'Customer')
+      )
+    );
+
+    return errors.reduce((errorsArray, detailArray) => errorsArray.concat(detailArray));
   }
 }
