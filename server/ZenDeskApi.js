@@ -13,9 +13,9 @@ export default class ZenDeskApi {
     return new Promise((resolve, reject) => {
       if (user.email && user.email_verified) {
         this.findByEmail(user.email)
-          .then(response => {
-            if (response) {
-              resolve(response);
+          .then(users => {
+            if (users && users.length > 0) {
+              resolve(users[0]);
             } else {
               this.createUser(user)
                 .then(res => resolve(res))
@@ -30,20 +30,22 @@ export default class ZenDeskApi {
   }
   
   findByEmail(email) {
-    const query = `type:user email:${email} role:agent role:admin`;
+    let query = 'type:user role:agent role:admin ';
+    query += [].concat(email).map(email => `email:${email}`).join(' ');
+
     return new Promise((resolve, reject) => {
       this.zenDeskClient.search.query(query, function (err, req, res) {
         if (err) {
           reject(err);
         } else {
-          resolve(res[0]);
+          resolve(res);
         }
       });
     });
   }
 
   createUser(attributes) {
-    const user = {
+    const payload = {
       "user": {
         "name": attributes.nickname,
         "email": attributes.email,
@@ -52,7 +54,7 @@ export default class ZenDeskApi {
     };
 
     return new Promise((resolve, reject) => {
-      this.zenDeskClient.users.create(user, function (err, req, res) {
+      this.zenDeskClient.users.create(payload, function (err, req, res) {
         if (err) {
           reject(err);
         } else {
@@ -63,7 +65,7 @@ export default class ZenDeskApi {
   }
 
   createTicket(agent_id, form) {
-    const ticket = {
+    const payload = {
       "ticket": {
         "requester": {
           "name": form.name, 
@@ -77,26 +79,30 @@ export default class ZenDeskApi {
       }
     };
 
+    if (form.collaborator_ids) {
+      payload.ticket.collaborator_ids = form.collaborator_ids;
+    }
+
     return new Promise((resolve, reject) => {
-      this.zenDeskClient.tickets.create(ticket, (err, req, res) => {
+      this.zenDeskClient.tickets.create(payload, (err, req, res) => {
         if (err) {
-          reject(this.parseZenDeskApiErrors(err));
+          reject(parseZenDeskTicketErrors(err));
         } else {
           resolve(res);
         }
       });
     });
   }
+}
 
-  parseZenDeskApiErrors(err) {
-    const errMsg = err.result.toString();
-    const errDetails = JSON.parse(errMsg).details;
-    const errors = Object.keys(errDetails).map(detail =>
-      errDetails[detail].map(detailErrors => 
-        detailErrors.description.replace('Requester', 'Customer')
-      )
-    );
+function parseZenDeskTicketErrors(err) {
+  const errMsg = err.result.toString();
+  const errDetails = JSON.parse(errMsg).details;
+  const errors = Object.keys(errDetails).map(detail =>
+    errDetails[detail].map(detailErrors => 
+      detailErrors.description.replace('Requester', 'Customer')
+    )
+  );
 
-    return errors.reduce((errorsArray, detailArray) => errorsArray.concat(detailArray));
-  }
+  return errors.reduce((errorsArray, detailArray) => errorsArray.concat(detailArray));
 }

@@ -2,6 +2,7 @@ import jwt from 'express-jwt';
 import path from 'path';
 import { Router } from 'express';
 import ZenDeskApi from './ZenDeskApi';
+import ZenDeskMiddleware from './ZenDeskMiddleware';
 
 const serverRoutes = Router();
 const auth0Authorization = jwt({
@@ -9,6 +10,7 @@ const auth0Authorization = jwt({
   audience: process.env.AUTH0_CLIENT_ID
 });
 const zenDeskClient = new ZenDeskApi();
+const zenDeskMiddleware = new ZenDeskMiddleware();
 
 // Front-End Routes
 serverRoutes.get('/', (req, res) => {
@@ -27,14 +29,9 @@ serverRoutes.use((err, req, res, next) => {
   }
 });
 
-serverRoutes.use('/api/v1/submit_ticket', (req, res, next) => {
-  zenDeskClient.findOrCreateUser(req.user)
-    .then(user => {
-      req.zenDeskUser = user;
-      next();
-    })
-    .catch(err => res.status(400).json({error: err}) );
-});
+serverRoutes.use('/api/v1/submit_ticket', zenDeskMiddleware.loadZenDeskUser);
+serverRoutes.use('/api/v1/submit_ticket', zenDeskMiddleware.loadCollaborators);
+
 
 serverRoutes.post('/api/v1/submit_ticket', (req, res) => {
   const formErrors = validateForm(req.body);

@@ -16,6 +16,7 @@ class Home extends React.Component {
       {name: 'name', type: 'text', label: 'Customer Name', placeholder: 'Name', options: {required: true}},
       {name: 'email', type: 'text', label: 'Customer Email', placeholder: 'Email', options: {required: true}},
       {name: 'subject', type: 'text', label: 'Subject', placeholder: 'Enter a Subject', options: {required: true}},
+      {name: 'cc', type: 'text', label: 'CC ', placeholder: 'Allows multiple emails (optional)'},
       {name: 'body', type: 'textarea', label: 'Body', placeholder: 'Describe what the ticket is for', options: {required: true}}
     ]);
   }
