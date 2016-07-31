@@ -9,15 +9,26 @@ const FormInput = ({type, name, value, placeholder, onChange, options={}}) => {
   // Merge Component Defaults with Options passed in
   options = {...defaultInputAttrs, ...options};
 
-  // Currently there are only two types of form inputs supported defaults to input
   switch(type) {
+    case 'select':
+      return (
+        <select 
+          name={name} 
+          value={value}
+          onChange={onChange}
+          className={options.className}>
+          {options.choices.map(opt => (
+            <option key={opt} value={opt}>{opt}</option>
+          ))}
+        </select>
+      );
     case 'textarea':
       return (
         <textarea 
           name={name} 
           value={value} 
           placeholder={placeholder}
-          onChange={onChange} 
+          onChange={onChange}
           className={options.className}
           required={options.required} 
           rows={options.rows} />
@@ -44,7 +55,7 @@ FormInput.propTypes = {
     PropTypes.string,
     PropTypes.number
   ]),
-  placeholder: PropTypes.string.isRequired,
+  placeholder: PropTypes.string,
   options: PropTypes.object
 };
 
