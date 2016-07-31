@@ -13,10 +13,16 @@ class Home extends React.Component {
 
   componentDidMount() {
     this.props.buildForm([
-      {name: 'name', type: 'text', label: 'Customer Name', placeholder: 'Name', options: {required: true}},
-      {name: 'email', type: 'text', label: 'Customer Email', placeholder: 'Email', options: {required: true}},
+      {name: 'type', type: 'select', label: 'Type ', options: {
+        choices: ['-', 'Question', 'Incident', 'Problem', 'Task']
+      }},
+      {name: 'priority', type: 'select', label: 'Priority ', options: {
+        choices: ['-', 'Low', 'Normal', 'High', 'Urgent']
+      }},
+      {name: 'name', type: 'text', label: 'Name', placeholder: 'Customer Name', options: {required: true}},
+      {name: 'email', type: 'text', label: 'Email', placeholder: 'Customer Email', options: {required: true}},
       {name: 'subject', type: 'text', label: 'Subject', placeholder: 'Enter a Subject', options: {required: true}},
-      {name: 'cc', type: 'text', label: 'CC ', placeholder: 'Allows multiple emails (optional)'},
+      {name: 'cc', type: 'text', label: 'CC ', placeholder: 'Allows multiple email addresses (optional)'},
       {name: 'body', type: 'textarea', label: 'Body', placeholder: 'Describe what the ticket is for', options: {required: true}}
     ]);
   }

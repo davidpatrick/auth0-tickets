@@ -75,7 +75,9 @@ export default class ZenDeskApi {
         "subject": form.subject, 
         "comment": { 
           "body": form.body
-        }
+        },
+        "type": form.type.toLowerCase(), 
+        "priority": form.priority.toLowerCase()
       }
     };
 
