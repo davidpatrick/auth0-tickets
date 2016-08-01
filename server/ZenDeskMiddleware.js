@@ -6,7 +6,7 @@ export default class ZenDeskMiddleware {
   constructor() {}
 
   loadZenDeskUser (req, res, next) {
-    zenDeskClient.findOrCreateUser(req.user)
+    zenDeskClient.findOrCreateAgent(req.user)
       .then(user => {
         req.zenDeskUser = user;
         next();

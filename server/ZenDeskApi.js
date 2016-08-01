@@ -9,15 +9,15 @@ export default class ZenDeskApi {
     });
   }
 
-  findOrCreateUser (user) {
+  findOrCreateAgent(user) {
     return new Promise((resolve, reject) => {
       if (user.email && user.email_verified) {
-        this.findByEmail(user.email)
+        this.findInternalUsersByEmail(user.email)
           .then(users => {
             if (users && users.length > 0) {
               resolve(users[0]);
             } else {
-              this.createUser(user)
+              this.createAgent(user)
                 .then(res => resolve(res))
                 .catch(err => reject(err));
             }
@@ -29,7 +29,7 @@ export default class ZenDeskApi {
     });
   }
   
-  findByEmail(email) {
+  findInternalUsersByEmail(email) {
     let query = 'type:user role:agent role:admin ';
     query += [].concat(email).map(email => `email:${email}`).join(' ');
 
@@ -44,7 +44,7 @@ export default class ZenDeskApi {
     });
   }
 
-  createUser(attributes) {
+  createAgent(attributes) {
     const payload = {
       "user": {
         "name": attributes.nickname,
