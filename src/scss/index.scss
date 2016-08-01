@@ -9,6 +9,11 @@
 .jumbotron {
   max-width: 1075px;
   margin: 20px auto;
+
+  h2 {
+    padding-top: 25px;
+    font-size: 50px;
+  }
 }
 
 @media all and (min-width: 992px) {
