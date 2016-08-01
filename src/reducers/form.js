@@ -5,7 +5,8 @@ const initialState = {
   loading: false,
   success: false,
   fields: [],
-  values: {}
+  values: {},
+  defaults: {}
 };
 
 const form = (state = initialState, action) => {

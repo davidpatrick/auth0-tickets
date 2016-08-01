@@ -13,7 +13,9 @@ const authentication = (state = initialState, action) => {
         token: action.token
       };
     case at.LOGOUT_USER:
-      return initialState;
+      return {
+        ...initialState
+      };
     default:
       return state;
   }
