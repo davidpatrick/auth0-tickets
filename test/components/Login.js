@@ -14,75 +14,75 @@ function setup() {
     auth: stubbedAuthService
   };
 
-  const enzymeWrapper = shallow(<Login {...props} />);
+  const wrapper = shallow(<Login {...props} />);
 
   return {
     props,
-    enzymeWrapper
+    wrapper
   };
 }
 
 describe('Components', () => {
   describe('Login', () => {
     it('renders section with jumbotron class', () => {
-      const { enzymeWrapper } = setup();
-      const element = enzymeWrapper.find('section');
+      const { wrapper } = setup();
+      const element = wrapper.find('section');
 
       expect(element.hasClass('jumbotron')).toBe(true);
     });
 
     it('should render one h2', () => {
-      const { enzymeWrapper } = setup();
-      const element = enzymeWrapper.find('h2');
+      const { wrapper } = setup();
+      const element = wrapper.find('h2');
 
       expect(element.length).toBe(1);
     });
 
     it('should render .icon-budicon-72 inside of h2', () => {
-      const { enzymeWrapper } = setup();
-      const element = enzymeWrapper.find('h2 .icon-budicon-72');
+      const { wrapper } = setup();
+      const element = wrapper.find('h2 .icon-budicon-72');
 
       expect(element.length).toBe(1);
     });
 
     it('should render one h1', () => {
-      const { enzymeWrapper } = setup();
-      const element = enzymeWrapper.find('h1');
+      const { wrapper } = setup();
+      const element = wrapper.find('h1');
 
       expect(element.length).toBe(1);
     });
 
     it('should render the title inside of h1', () => {
-      const { enzymeWrapper } = setup();
-      const element = enzymeWrapper.find('h1');
+      const { wrapper } = setup();
+      const element = wrapper.find('h1');
 
       expect(element.text()).toBe('Auth0 Ticketing System');
     });
 
     it('should render one p', () => {
-      const { enzymeWrapper } = setup();
-      const element = enzymeWrapper.find('p');
+      const { wrapper } = setup();
+      const element = wrapper.find('p');
 
       expect(element.length).toBe(1);
     });
 
     it('should render one button', () => {
-      const { enzymeWrapper } = setup();
-      const element = enzymeWrapper.find('button');
+      const { wrapper } = setup();
+      const element = wrapper.find('button');
 
       expect(element.length).toBe(1);
     });
 
     it('should render Login text inside of button', () => {
-      const { enzymeWrapper } = setup();
-      const element = enzymeWrapper.find('button');
+      const { wrapper } = setup();
+      const element = wrapper.find('button');
 
       expect(element.text()).toBe('Login');
     });
 
     it('should call props.auth.login on button click', () => {
-      const { enzymeWrapper, props } = setup();
-      const element = enzymeWrapper.find('button');
+      const { wrapper, props } = setup();
+      const element = wrapper.find('button');
 
       element.props().onClick('test');
       expect(props.auth.login.calls.length).toBe(1);
