@@ -1,13 +1,17 @@
 import expect from 'expect';
 import React from 'react';
 import { shallow } from 'enzyme';
+import { createStubInstance } from 'sinon';
+import AuthService from '../../src/utils/AuthService';
 import { Login } from '../../src/components/Login';
 
+
 function setup() {
+  const stubbedAuthService = createStubInstance(AuthService);
+  stubbedAuthService.login = expect.createSpy();
+
   const props = {
-    auth: {
-      login: expect.createSpy()
-    }
+    auth: stubbedAuthService
   };
 
   const enzymeWrapper = shallow(<Login {...props} />);
