@@ -30,8 +30,6 @@ serverRoutes.use((err, req, res, next) => {
 });
 
 serverRoutes.use('/api/v1/submit_ticket', zenDeskMiddleware.loadZenDeskUser);
-serverRoutes.use('/api/v1/submit_ticket', zenDeskMiddleware.loadCollaborators);
-
 
 serverRoutes.post('/api/v1/submit_ticket', (req, res) => {
   const formErrors = validateForm(req.body);

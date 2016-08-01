@@ -81,8 +81,8 @@ export default class ZenDeskApi {
       }
     };
 
-    if (form.collaborator_ids) {
-      payload.ticket.collaborator_ids = form.collaborator_ids;
+    if (form.cc) {
+      payload.ticket.collaborators = form.cc.trim().split(/[ ,]+/);
     }
 
     return new Promise((resolve, reject) => {
