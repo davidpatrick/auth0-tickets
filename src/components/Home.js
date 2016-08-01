@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 import { formBuild, formUpdateValue, formSubmit } from '../actions/';
 import Form from './Form';
 
-class Home extends React.Component {
+export class Home extends React.Component {
   constructor(props) {
     super(props);
     this.handleInputChange = this.handleInputChange.bind(this);
