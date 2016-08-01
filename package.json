@@ -12,7 +12,7 @@
     "build-server-src": "babel ./server/ -d ./dist/server/ -D --presets es2015",
     "dev": "babel-node server.dev",
     "start": "npm run build && node ./dist/server.prod",
-    "test": "mocha --compilers js:babel-register --recursive",
+    "test": "mocha --compilers js:babel-register --recursive --require ./test/setup.js",
     "test:watch": "npm test -- --watch"
   },
   "dependencies": {
@@ -32,7 +32,7 @@
     "isomorphic-fetch": "^2.2.1",
     "node-sass": "^3.8.0",
     "node-zendesk": "^1.1.10",
-    "react": "^15.2.1",
+    "react": "^15.3.0",
     "react-dom": "^15.2.1",
     "react-redux": "^4.4.5",
     "react-router": "^2.6.0",
@@ -43,12 +43,14 @@
     "webpack": "^1.13.1"
   },
   "devDependencies": {
+    "enzyme": "^2.4.1",
     "eslint": "^3.1.1",
     "eslint-plugin-import": "^1.11.1",
     "eslint-plugin-react": "^5.2.2",
     "expect": "^1.20.2",
     "mocha": "^3.0.0",
     "nock": "^8.0.0",
+    "react-addons-test-utils": "^15.3.0",
     "react-hot-loader": "^1.3.0",
     "redux-mock-store": "^1.1.2",
     "webpack-dev-middleware": "^1.6.1",
