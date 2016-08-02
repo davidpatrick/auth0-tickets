@@ -1,5 +1,5 @@
 # auth0-tickets
-Submit customer support tickets to Zendesk
+Submit customer support tickets to Zendesk.  You can demo this app at http://auth0-tickets.herokuapp.com/
 
 ## Required Environment Variables
 * AUTH0_CLIENT_ID
