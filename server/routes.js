@@ -1,5 +1,4 @@
 import jwt from 'express-jwt';
-import path from 'path';
 import { Router } from 'express';
 import ZenDeskApi from './ZenDeskApi';
 import ZenDeskMiddleware from './ZenDeskMiddleware';
@@ -12,26 +11,17 @@ const auth0Authorization = jwt({
 const zenDeskClient = new ZenDeskApi();
 const zenDeskMiddleware = new ZenDeskMiddleware();
 
-// Front-End Routes
-serverRoutes.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, './index.html'));
-});
-
-serverRoutes.get('*', (req, res) => {
-  res.status(404).json({'error': 'Sorry this page does not exist!'});
-});
-
 // Api Routes
-serverRoutes.use('/api/*', auth0Authorization);
+serverRoutes.use('*', auth0Authorization);
 serverRoutes.use((err, req, res, next) => {
   if (err.name === 'UnauthorizedError') {
     res.status(401).json({error: 'Unauthorized'});
   }
 });
 
-serverRoutes.use('/api/v1/submit_ticket', zenDeskMiddleware.loadZenDeskUser);
+serverRoutes.use('/v1/submit_ticket', zenDeskMiddleware.loadZenDeskUser);
 
-serverRoutes.post('/api/v1/submit_ticket', (req, res) => {
+serverRoutes.post('/v1/submit_ticket', (req, res) => {
   const formErrors = validateForm(req.body);
 
   if (formErrors) {

@@ -1,12 +1,11 @@
 import path from 'path';
 import webpack from 'webpack';
-import HtmlWebpackPlugin from 'html-webpack-plugin';
 
 export default {
   devtool: '#cheap-module-source-map',
   entry: [
     'babel-polyfill',
-    path.resolve(__dirname, 'src/index')
+    path.resolve(__dirname, 'src/index'),
   ],
   output: {
     filename: 'bundle.js',
@@ -23,7 +22,7 @@ export default {
       },
       {
         test: /\.scss$/,
-        loader: 'style!css!sass'
+        loader: 'style!css!sass',
       }
     ]
   },
@@ -34,7 +33,6 @@ export default {
        }
     }),
     new webpack.EnvironmentPlugin(['AUTH0_CLIENT_ID', 'AUTH0_DOMAIN']),
-    new HtmlWebpackPlugin({template: 'index.html'}),
   ],
   target: 'web',
 };

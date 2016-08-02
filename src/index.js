@@ -1,6 +1,6 @@
 import React from 'react';
 import { render } from 'react-dom';
-import { Router, Route, IndexRedirect, hashHistory } from 'react-router';
+import { Router, Route, IndexRedirect, browserHistory } from 'react-router';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import ReduxThunk from 'redux-thunk';
@@ -9,13 +9,13 @@ import reducers from './reducers/';
 import App from './components/App';
 import Loading from './components/Loading';
 import NotFound from './components/NotFound';
-import Home from './components/Home';
-import Login from './components/Login';
+import HomeContainer from './components/Home';
+import LoginContainer from './components/Login';
 
 import './scss/index.scss';
 
 const store = createStore(reducers, applyMiddleware(ReduxThunk));
-const auth = new AuthService(process.env.AUTH0_CLIENT_ID, process.env.AUTH0_DOMAIN, store, hashHistory);
+const auth = new AuthService(process.env.AUTH0_CLIENT_ID, process.env.AUTH0_DOMAIN, store, browserHistory);
 
 const requireAuth = (nextState, replace) => {
   if (!auth.loggedIn()) {
@@ -25,11 +25,11 @@ const requireAuth = (nextState, replace) => {
 
 render(
   <Provider store={store}>
-    <Router history={hashHistory}>
+    <Router history={browserHistory}>
       <Route path="/" component={App} auth={auth}>
         <IndexRedirect to="/home" />
-        <Route path="home" component={Home} onEnter={requireAuth}/>
-        <Route path="login" component={Login} />
+        <Route path="home" component={HomeContainer} onEnter={requireAuth}/>
+        <Route path="login" component={LoginContainer} />
         <Route path="*" component={NotFound}/>
       </Route>
     </Router>

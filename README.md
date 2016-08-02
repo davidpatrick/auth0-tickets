@@ -16,3 +16,4 @@ Submit customer support tickets to Zendesk
 * Add Tags field (predictive text input dropdown)
 * Add Preview for Body to show markdown and code formatting
 * (optional) Show Formatted Ticket afer Submission
+* More tests

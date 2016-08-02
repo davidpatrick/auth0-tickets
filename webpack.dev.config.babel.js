@@ -1,6 +1,5 @@
 import path from 'path';
 import webpack from 'webpack';
-import HtmlWebpackPlugin from 'html-webpack-plugin';
 
 export default {
   devtool: 'cheap-module-eval-source-map',
@@ -35,7 +34,6 @@ export default {
        }
     }),
     new webpack.EnvironmentPlugin(['AUTH0_CLIENT_ID', 'AUTH0_DOMAIN']),
-    new HtmlWebpackPlugin({template: 'index.html'}),
     new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin(),
