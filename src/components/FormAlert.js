@@ -12,7 +12,7 @@ const FormAlert = ({success, errors}) => {
     return (
       <div className="alert alert-danger">
         <ul>
-          {errors.map(error => <li key={error}> {error} </li>)}
+          {errors.map(error => <li key={error}>{error}</li>)}
         </ul>
       </div>
     );
