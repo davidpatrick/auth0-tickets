@@ -14,7 +14,7 @@ function setup(options = {}) {
       email: 'test@example.org'
     },
     success: false,
-    errors: false,
+    errors: [],
     loading: options.loading || false,
     handleInputChange: expect.createSpy(), 
     handleFormSubmission: expect.createSpy()
@@ -29,7 +29,7 @@ function setup(options = {}) {
 }
 
 describe('Components', () => {
-  describe('Home', () => {
+  describe('Form', () => {
     it('should render one form', () => {
       const { wrapper } = setup();
       const element = wrapper.find('form');
