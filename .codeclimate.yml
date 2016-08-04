@@ -11,12 +11,15 @@ engines:
     - 4ea8362a2a69b1e9bbcacc43c7fd5245
     - 65e08eaad147b579e252cf8af81b02fa
     - dc598e1038cecf0eac28474c64166b6b
-  eslint:
+  eslint2:
     enabled: true
   fixme:
     enabled: true
 ratings:
   paths:
-  - "**.js"
+  - "server/**/*.js"
+  - "src/**/*.js"
 exclude_paths:
 - test/
+- node_modules/
+- coverage/
