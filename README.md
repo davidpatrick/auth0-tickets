@@ -1,4 +1,8 @@
 # auth0-tickets
+[![Code Climate](https://codeclimate.com/github/davidpatrick/auth0-tickets/badges/gpa.svg)](https://codeclimate.com/github/davidpatrick/auth0-tickets)
+[![Test Coverage](https://codeclimate.com/github/davidpatrick/auth0-tickets/badges/coverage.svg)](https://codeclimate.com/github/davidpatrick/auth0-tickets/coverage)
+[![Build Status](https://travis-ci.org/davidpatrick/auth0-tickets.svg?branch=master)](https://travis-ci.org/davidpatrick/auth0-tickets)
+
 Submit customer support tickets to Zendesk.  You can demo this app at http://auth0-tickets.herokuapp.com/
 
 ## Required Environment Variables
