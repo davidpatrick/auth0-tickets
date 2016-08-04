@@ -1,0 +1,20 @@
+---
+engines:
+  duplication:
+    enabled: true
+    config:
+      languages:
+      - javascript
+    exclude_fingerprints:
+    - e4f3e15eb852b314700a13f75297bf4d
+    - 1359099b9d434ee2c7cfbde47dc72de0
+    - 4ea8362a2a69b1e9bbcacc43c7fd5245
+  eslint:
+    enabled: true
+  fixme:
+    enabled: true
+ratings:
+  paths:
+  - "**.js"
+exclude_paths:
+- test/
