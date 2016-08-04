@@ -8,9 +8,9 @@ function setup() {
     form: {
       fields: [],
       values: {},
-      success: true,
-      errors: true,
-      loading: true
+      errors: [],
+      loading: true,
+      success: true
     },
     authentication: {},
     buildForm: function(){},
