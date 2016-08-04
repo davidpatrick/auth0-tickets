@@ -8,8 +8,6 @@ engines:
     exclude_fingerprints:
     - e4f3e15eb852b314700a13f75297bf4d
     - 1359099b9d434ee2c7cfbde47dc72de0
-    - 4ea8362a2a69b1e9bbcacc43c7fd5245
-    - 65e08eaad147b579e252cf8af81b02fa
     - dc598e1038cecf0eac28474c64166b6b
     - 5bab24ce17da6daf9e7637906b2a7f47
     - 3d1ad54e57be5e13c0c04beed1b6d7e6
