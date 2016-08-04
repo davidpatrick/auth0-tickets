@@ -12,7 +12,8 @@
     "build-server-src": "babel ./server/ -d ./dist/server/ -D --presets es2015",
     "dev": "babel-node server.dev",
     "start": "npm run build && node ./dist/server.prod",
-    "test": "mocha --compilers js:babel-register --recursive --require ./test/setup.js",
+    "coverage": "babel-node ./node_modules/.bin/isparta cover --include 'src/**/*.js' _mocha",
+    "test": "mocha",
     "test:watch": "npm test -- --watch"
   },
   "dependencies": {
@@ -47,6 +48,9 @@
     "eslint-plugin-import": "^1.11.1",
     "eslint-plugin-react": "^6.0.0",
     "expect": "^1.20.2",
+    "isparta": "^4.0.0",
+    "istanbul": "^0.4.4",
+    "jsdom": "^9.4.1",
     "mocha": "^3.0.0",
     "nock": "^8.0.0",
     "react-addons-test-utils": "^15.3.0",
