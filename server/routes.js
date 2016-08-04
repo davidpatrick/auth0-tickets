@@ -2,14 +2,15 @@ import jwt from 'express-jwt';
 import { Router } from 'express';
 import ZenDeskApi from './ZenDeskApi';
 import ZenDeskMiddleware from './ZenDeskMiddleware';
+import PromiseResolver from './utils/PromiseResolver';
 
 const serverRoutes = Router();
 const auth0Authorization = jwt({
   secret: new Buffer(process.env.AUTH0_SECRET, 'base64'),
   audience: process.env.AUTH0_CLIENT_ID
 });
-const zenDeskClient = new ZenDeskApi();
-const zenDeskMiddleware = new ZenDeskMiddleware();
+const zenDeskApi = new ZenDeskApi(PromiseResolver.call);
+const zenDeskMiddleware = new ZenDeskMiddleware(zenDeskApi);
 
 // Api Routes
 serverRoutes.use('*', auth0Authorization);
@@ -27,7 +28,7 @@ serverRoutes.post('/v1/submit_ticket', (req, res) => {
   if (formErrors) {
     res.status(400).json({error: formErrors});
   } else {
-    zenDeskClient.createTicket(req.zenDeskUser.id, req.body)
+    zenDeskApi.createTicket(req.zenDeskUser.id, req.body)
       .then(ticket => res.status(200).json(ticket))
       .catch(err => res.status(400).json({error: err}));
   }

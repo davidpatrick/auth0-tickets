@@ -1,12 +1,14 @@
 import zendesk from 'node-zendesk';
 
 export default class ZenDeskApi {
-  constructor(user, token, url) {
+  constructor(callbackResolver) {
     this.zenDeskClient = zendesk.createClient({
       username:  process.env.ZENDESK_USERNAME,
       token:     process.env.ZENDESK_TOKEN,
       remoteUri: process.env.ZENDESK_URL
     });
+
+    this.callbackResolver = callbackResolver;
   }
 
   findOrCreateAgent(user) {
@@ -30,18 +32,12 @@ export default class ZenDeskApi {
   }
   
   findInternalUsersByEmail(email) {
-    let query = 'type:user role:agent role:admin ';
-    query += [].concat(email).map(email => `email:${email}`).join(' ');
+    let payload = 'type:user role:agent role:admin ';
+    payload += [].concat(email).map(email => `email:${email}`).join(' ');
 
-    return new Promise((resolve, reject) => {
-      this.zenDeskClient.search.query(query, function (err, req, res) {
-        if (err) {
-          reject(err);
-        } else {
-          resolve(res);
-        }
-      });
-    });
+    return new Promise((resolve, reject) => 
+      this.zenDeskClient.search.query(payload, this.callbackResolver(resolve, reject))
+    );
   }
 
   createAgent(attributes) {
@@ -53,15 +49,9 @@ export default class ZenDeskApi {
       }
     };
 
-    return new Promise((resolve, reject) => {
-      this.zenDeskClient.users.create(payload, function (err, req, res) {
-        if (err) {
-          reject(err);
-        } else {
-          resolve(res);
-        }
-      });
-    });
+    return new Promise((resolve, reject) => 
+      this.zenDeskClient.users.create(payload, this.callbackResolver(resolve, reject))
+    );
   }
 
   createTicket(agent_id, form) {
@@ -86,18 +76,14 @@ export default class ZenDeskApi {
     }
 
     return new Promise((resolve, reject) => {
-      this.zenDeskClient.tickets.create(payload, (err, req, res) => {
-        if (err) {
-          reject(parseZenDeskTicketErrors(err));
-        } else {
-          resolve(res);
-        }
-      });
+      this.zenDeskClient.tickets.create(payload, (err, req, res) => 
+        err ? reject(parseZenDeskTicketErrors(err)) : resolve(res)
+      );
     });
   }
 }
 
-function parseZenDeskTicketErrors(err) {
+function parseZenDeskTicketErrors(err) { 
   const errMsg = err.result.toString();
   const errDetails = JSON.parse(errMsg).details;
   const errors = Object.keys(errDetails).map(detail =>

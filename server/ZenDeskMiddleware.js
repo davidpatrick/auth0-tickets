@@ -1,12 +1,11 @@
-import ZenDeskApi from './ZenDeskApi';
-
-const zenDeskClient = new ZenDeskApi();
-
 export default class ZenDeskMiddleware {
-  constructor() {}
+  constructor(zenDeskApi) {
+    this.zenDeskApi = zenDeskApi;
+    this.loadZenDeskUser = this.loadZenDeskUser.bind(this);
+  }
 
   loadZenDeskUser (req, res, next) {
-    zenDeskClient.findOrCreateAgent(req.user)
+    this.zenDeskApi.findOrCreateAgent(req.user)
       .then(user => {
         req.zenDeskUser = user;
         next();
