@@ -63,60 +63,11 @@ describe('Components', () => {
       expect(element.length).toBe(1);
     });
 
-    describe('when loggedIn', () => {
-      const { wrapper, props } = setup({loggedIn: true});
+    it('should render one AuthLink', () => {
+      const { wrapper } = setup();
+      const element = wrapper.find('AuthLink');
 
-      it('should render logout link', () => {
-        const element = wrapper.find('#auth-link');
-
-        expect(element.props().href).toBe('logout');
-      });
-
-      it('should render login link text', () => {
-        const element = wrapper.find('#auth-link');
-
-        expect(element.text()).toBe('Logout');
-      });
-
-      describe('when #auth-link clicked', () => {
-        const element = wrapper.find('#auth-link');
-        element.props().onClick({preventDefault: ()=>{} });
-        
-        it('should call props.route.auth.logout', () => {
-          expect(props.route.auth.logout).toHaveBeenCalled();
-        });
-
-        it('should call props.router.replace with /login', () => {
-          expect(props.router.replace).toHaveBeenCalledWith({
-            pathname: '/login'
-          });
-        });
-      });
-    });
-
-    describe('when loggedOut', () => {
-      const { wrapper, props } = setup({loggedIn: false});
-
-      it('should render login link', () => {
-        const element = wrapper.find('#auth-link');
-
-        expect(element.props().href).toBe('login');
-      });
-
-      it('should render login link text', () => {
-        const element = wrapper.find('#auth-link');
-
-        expect(element.text()).toBe('Login');
-      });
-
-      describe('when #auth-link clicked', () => {
-        const element = wrapper.find('#auth-link');
-        element.props().onClick({preventDefault: ()=>{} });
-        
-        it('should call props.route.auth.login', () => {
-          expect(props.route.auth.login).toHaveBeenCalled();
-        });
-      });
+      expect(element.length).toBe(1);
     });
   });
 });
