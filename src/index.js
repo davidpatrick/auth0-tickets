@@ -6,9 +6,9 @@ import { createStore, applyMiddleware } from 'redux';
 import ReduxThunk from 'redux-thunk';
 import AuthService from './utils/AuthService';
 import reducers from './reducers/';
-import App from './components/App';
 import Loading from './components/Loading';
 import NotFound from './components/NotFound';
+import AppContainer from './components/App';
 import HomeContainer from './components/Home';
 import LoginContainer from './components/Login';
 
@@ -26,7 +26,7 @@ const requireAuth = (nextState, replace) => {
 render(
   <Provider store={store}>
     <Router history={browserHistory}>
-      <Route path="/" component={App} auth={auth}>
+      <Route path="/" component={AppContainer} auth={auth}>
         <IndexRedirect to="/home" />
         <Route path="home" component={HomeContainer} onEnter={requireAuth}/>
         <Route path="login" component={LoginContainer} />

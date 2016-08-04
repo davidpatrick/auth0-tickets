@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import { withRouter } from 'react-router';
 import Footer from './Footer';
 
-class App extends React.Component {
+export class App extends React.Component {
   constructor(props) {
     super(props);
     this.handleLogin = this.handleLogin.bind(this);
@@ -22,8 +22,8 @@ class App extends React.Component {
 
   buildAuthLink () {
     return (this.props.route.auth.loggedIn())
-      ? <li><a href="/#/logout" onClick={this.handleLogout} data-toggle="collapse" data-target="#navbar-collapse">Logout</a></li>
-      : <li><a href="/#/login" onClick={this.handleLogin} data-toggle="collapse" data-target="#navbar-collapse">Login</a></li>;
+      ? <li><a href="logout" onClick={this.handleLogout} id="auth-link" data-toggle="collapse" data-target="#navbar-collapse">Logout</a></li>
+      : <li><a href="login" onClick={this.handleLogin} id="auth-link" data-toggle="collapse" data-target="#navbar-collapse">Login</a></li>;
   }
 
   render() {
