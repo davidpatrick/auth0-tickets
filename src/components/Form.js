@@ -39,7 +39,7 @@ const Form = ({fields, values, success, errors, loading, handleInputChange, hand
       </form>
     );
   } else {
-    return <div></div>;
+    return <div />;
   }
 };
 

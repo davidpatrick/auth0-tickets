@@ -61,8 +61,7 @@ const Footer = () => (
         </div>
       </div>
       <div className="colophon">
-        <div className="column">
-        </div>
+        <div className="column" />
         <div className="column">
           <ul className="list-inline text-right">
             <li><a href="https://auth0.com/privacy">Privacy Policy</a></li>

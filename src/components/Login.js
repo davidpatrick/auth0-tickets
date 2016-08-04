@@ -18,7 +18,7 @@ export class Login extends React.Component {
     return (
       <section className="jumbotron">
         <h2>
-          <i aria-hidden="true" className="icon-budicon-72 icon"></i>
+          <i aria-hidden="true" className="icon-budicon-72 icon" />
         </h2>
 
         <h1>Auth0 Ticketing System</h1>

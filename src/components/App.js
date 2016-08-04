@@ -37,7 +37,7 @@ export class App extends React.Component {
           <nav role="navigation" className="navbar navbar-default">
             <div className="container">
               <div className="navbar-header">
-                <button type="button" data-toggle="collapse" data-target="#navbar-collapse" className="navbar-toggle"><span className="sr-only">Toggle navigation</span><span className="icon-bar"></span><span className="icon-bar"></span><span className="icon-bar"></span></button>
+                <button type="button" data-toggle="collapse" data-target="#navbar-collapse" className="navbar-toggle"><span className="sr-only">Toggle navigation</span><span className="icon-bar" /><span className="icon-bar"/><span className="icon-bar" /></button>
                 <h1 className="navbar-brand">
                   <a href="/"><span>Auth0</span></a>
                 </h1>
